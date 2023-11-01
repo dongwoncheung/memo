@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer>{
 	//UserEntity 는 null이거나 채워져있거나
 	public UserEntity findByLoginId(String loginId);// 단건 조회
 	
+	//userentity 는 null이거나 채워져있거나
+	public UserEntity findByLoginIdAndPassword(String loginId, String password);
 }

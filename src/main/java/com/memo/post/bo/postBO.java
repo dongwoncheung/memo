@@ -1,0 +1,20 @@
+package com.memo.post.bo;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.memo.post.domain.Post;
+import com.memo.post.mapper.PostMapper;
+
+@Service
+public class postBO {
+	@Autowired
+	private PostMapper postMapper;
+	//in: user id 
+	//out: List<Post> 여러개행 최신순으로
+	public List<Post> getPostListByUserId(int userId){
+		return postMapper.selectPostListByUserId(userId);
+	} 
+}
