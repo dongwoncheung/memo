@@ -1,6 +1,5 @@
 package com.memo.post.domain;
 
-import java.sql.Date;
 import java.time.ZonedDateTime;
 
 import lombok.Data;

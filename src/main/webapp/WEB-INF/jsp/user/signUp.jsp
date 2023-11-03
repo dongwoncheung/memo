@@ -48,7 +48,7 @@
 <script>
 $(document).ready(function(){
 	//중복버튼 클릭
-	$("#loginIdCheckBtn").on("click", function(){
+	$("#loginIdCheckBtn").on("click", function(e){
 		//alert("중복확인");
 		//경고 문구를 초기화 시켜줘야된다
 		$("#idCheckLength").addClass('d-none');

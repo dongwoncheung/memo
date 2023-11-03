@@ -93,7 +93,7 @@ public class UserRestController {
 	public Map<String, Object>signIn(
 			@RequestParam("loginId")String loginId,
 			@RequestParam("password")String password,
-			HttpServletRequest request){ // jseeson의 id을 꺼내기위해서 추가(HttpServletRequest request)
+			HttpServletRequest request){ // jason의 id을 꺼내기위해서 추가(HttpServletRequest request)
 		//비밀번호를 hashing하기
 		String hashedPassword = EncryptUtils.md5(password);
 		//db조회(loginId, 해싱된 비밀번호) -> null or 있음 ????
@@ -103,12 +103,14 @@ public class UserRestController {
 		Map<String, Object> result = new HashMap<>();
 		if(user != null) {
 			//로그인 처리
-			HttpSession session =  request.getSession();
+			
+			HttpSession session = request.getSession();
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userName", user.getName());
 			session.setAttribute("loginId", user.getLoginId());
 			result.put("code", 200);
 			result.put("result", "성공");
+			 
 			
 		}else {
 			//로그인 불가
