@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center"> <!-- 수평기준 가운데 정렬 -->
 	<div class="w-50">
-		<h1>글 상세</h1>
+		<h1>글 쓰기</h1>
 			<input type="text" id="subject" class="form-control" placeholder="제목을 입력하세요">
 			<textarea id="content"class="form-control" rows="10" placehodler="내용을 입력하세요"></textarea>
 	<div class="d-flex justify-content-end my-4">
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		let ext = fileName.split(".").pop().toLowerCase();
 		//alert(ext);
 		
-		if($.inArray(ext, ['jpg','jpeg','png','gif']) == -1){
+		if($.inArray(ext, ['jpg','jpeg','png','gif']) == -1){// 이배열 안에 ext가 없을때를 의미한다
 			alert("이미지 파일만 업로드 할수있습니다");
 			$("#file").val(""); // 파일을 비운다
 			return;
@@ -71,7 +71,7 @@ $(document).ready(function(){
 	let formData = new FormData();
 		formData.append("subject", subject); // key는 form 태그의 name 속성과 같고 Request parameter명이 된다.
 		formData.append("content", content);
-		formData.append("file", $("#file")[0].files[0]);
+		formData.append("file", $("#file")[0].files[0]); 
 	
 	$.ajax({
 		//request
@@ -79,9 +79,9 @@ $(document).ready(function(){
 		,url:"/post/create"
 		,data:formData
 		//파일을 업로드 하는 방식
-		, enctype:"multipart/form-data" // 파일업로드를 위한 필수 설정
-		,processData:false // 파일업로드를 위한 필수 설정
-		,contentType:false // 파일업로드를 위한 필수 설정
+		, enctype:"multipart/form-data" // 파일업로드를 위한 필수 설정 -> form과 label태그로 이미지 업로드 할때 반드시 넣어줘야되는 함수
+		,processData:false // 파일업로드를 위한 필수 설정 
+		,contentType:false // 파일업로드를 위한 필수 설정	 -> 지금 내가 보내는 타입이 string이 아니다는것을 알릴려주는 설정
 		
 		//response
 		, success:function(data){

@@ -28,7 +28,38 @@
 	</div>
 </div>
 <script>
-$(document).ready(function() {
+$(document).ready(function(){
+	$("#loginForm").on('submit', function(e){
+		e.preventDefault();
+		let loginId = $('#loginId').val().trim();
+		let password = $('#password').val();
+		if(!loginId){
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		if(!password){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		
+		//ajax
+		let url = $(this).attr('action');
+		console.log(url);
+		let params = $(this).serialize();//증열화하는 부분 -> name 속성이 있어야된다
+		console.log(params);
+		
+		$.post(url, params) // request
+		.done(function(data){//response
+			if(data.code == 200){//성공
+				//성공시 글목록으로 이동을 한다
+				location.href="/post/post-list-view"
+			}else{//로직상 실패
+				alert(data.errorMessage);
+			}
+		}); 
+	});
+});
+/* $(document).ready(function() {
 	// 로그인
 	$('#loginForm').on('submit', function(e) {
 		e.preventDefault(); // form submit 중단
@@ -64,39 +95,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-});
-/* $(document).ready(function() {
-	// 로그인
-	$("#loginForm").on("submit", function(e) {
-		e.preventDefault(); // form submit 중단
-		alert("로그인완료");
-		
-		let loginId = $('#loginId').val().trim();//아이디로 가져온경우
-		let password = $('#password').val();
-		if (!loginId) {
-			alert("아이디를 입력하세요");
-			return false;
-		}
-		if (!password) {
-			alert("비밀번호를 입력하세요");
-			return false;
-		}  
-	//ajax 
-	//form url, params(name에 있는것들)
-	 	let url = $(this).attr('action');//$("#loginForm").attr('action')
-		console.log(url);
-		let params = $(this).serialize();// name속성이 반드시 있어야된다
-		console.log(params);
-	
-	 $.post(url, params)// request에 대한 정보 
-	.done(function(data){//response의 대한 정의
-		if(data.code == 200){//성공
-			//성공시 글목록으로 이동
-			location.href = "/post/post-list-view";
-		}else{//로직상 실패
-			alert(data.errorMessage);
-		}
-	}); 
-}); 
 }); */
+
 </script>

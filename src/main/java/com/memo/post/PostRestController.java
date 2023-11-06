@@ -22,11 +22,12 @@ public class PostRestController {
 	private PostBO postBO;
 	
 	@PostMapping("/create")
+	
 	public Map<String, Object> create(
 			@RequestParam("subject") String subject,
 			@RequestParam("content") String content,
 			@RequestParam(value = "file", required = false) MultipartFile file,
-			HttpSession session) {
+			HttpSession session) { // 쿠키랑 세션의 차이를 좀 알아보기
 		
 		// session에 들어있는 유저 id 꺼낸다.
 		int userId = (int)session.getAttribute("userId");
@@ -40,4 +41,4 @@ public class PostRestController {
 		result.put("result", "성공");
 		return result;
 	}
-}
+}  
