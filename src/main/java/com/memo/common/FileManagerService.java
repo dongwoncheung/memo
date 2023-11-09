@@ -6,12 +6,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component   // spring bean
 public class FileManagerService {
-
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass()); // 클레스명 파라미터 안에 복사후.class
+	
 	// 실제 업로드가 된 이미지가 저장될 경로(서버)
 	public static final String FILE_UPLOAD_PATH = "C:\\JAVAclass\\5_springproject\\memo\\workspace\\imges/";
 	
@@ -43,5 +47,34 @@ public class FileManagerService {
 		// 주소는 이렇게 될 것이다.(예언)
 		// /images/aaaa_178945646/sun.png
 		return "/images/" + directoryName + "/" + file.getOriginalFilename();
+	}
+	//이미지 삭제
+	//in: imagePath
+	//out: x
+	public void deleteFile(String imagePath) {// /images/null_1699103903018/스크린샷 2023-09-10 195753.png
+		// C:\\JAVAclass\\5_springproject\\memo\\workspace\\imges/null_1699103903018/스크린샷 2023-09-10 195753.png
+		//주소에 겹치는 /images/ 제거한다.
+		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", ""));
+		if(Files.exists(path)) {//이미지가 존재하는가??
+			//이미지삭제
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				logger.error("[이미지 삭제]파일삭제 실패 imagePath:{}, imagePath:{}");
+				return;
+			}
+			
+			//폴더(디렉토리)삭제
+			path = path.getParent(); 
+			if(Files.exists(path)) {
+				try {
+					Files.delete(path);
+				} catch (IOException e) {
+					logger.error("[이미지 삭제]폴더삭제 실패 imagePath:{}, imagePath:{}");
+				}
+			}
+			
+		}
+	
 	}
 }
