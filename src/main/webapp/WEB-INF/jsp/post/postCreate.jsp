@@ -55,12 +55,12 @@ $(document).ready(function(){
 		//alert("파일이 있다");
 		//C:\fakepath\다운로드.jpg
 		// 확장자만 뽑은후 소문자로 변경한다
-		let ext = fileName.split(".").pop().toLowerCase();
+		let ext = fileName.split(".").pop().toLowerCase(); //마지막 파일을 뽑아내는함수:.pop() -> stack 이랑 push의 의미 알아보기 /toLowerCase()-> 가지고 온파일들을 소문자로 변경을 해주는 함수
 		//alert(ext);
 		
-		if($.inArray(ext, ['jpg','jpeg','png','gif']) == -1){// 이배열 안에 ext가 없을때를 의미한다
+		if($.inArray(ext, ['jpg','jpeg','png','gif']) == -1){// 이배열 안에 ext파일안에 이미지가 없을때를 의미한다
 			alert("이미지 파일만 업로드 할수있습니다");
-			$("#file").val(""); // 파일을 비운다
+			$("#file").val(""); // 파일을 비운다 -> 비워진 파일을 다시 세팅을 한다
 			return;
 		}
 	}
@@ -72,7 +72,7 @@ $(document).ready(function(){
 	let formData = new FormData(); // 돔트리에 form태그를 만들어줄려고 하는 함수
 		formData.append("subject", subject); // key는 form 태그의 name 속성과 같고 Request parameter명이 된다./ 400에러 발생시 requestparam의 내용이랑 데이터로보내는 내용 확인
 		formData.append("content", content);
-		formData.append("file", $("#file")[0].files[0]); 
+		formData.append("file", $("#file")[0].files[0]); //$("#file")[0].files[0] 파일통 태그를 가지고 온다음 파일이라는 이름이 여러개 있을수있으니 그 파일 중 0번째 하나만 가져 온다
 	
 	$.ajax({
 		//request

@@ -13,7 +13,15 @@ public interface PostMapper {
 
 	public List<Map<String, Object>> selectPostList();
 	
-	public List<Post> selectPostListByUserId(int userId);
+	public List<Post> selectPostListByUserId(
+			@Param("userId")int userId,
+			@Param("direction")String direction,
+			@Param("standardId")Integer standardId,
+			@Param("limit")int limit);// my batis 에서 limit 의 숫자를 나태내는 문법(@Param("limit")int limit)
+	
+	public int selectPostIdByUserIdAndSort(
+			@Param("userId")int userId,
+			@Param("sort")String sort);
 	
 	public Post selectPostByPostIdUserId(
 			@Param("postId") int postId, 

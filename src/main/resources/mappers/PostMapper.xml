@@ -25,7 +25,23 @@
 			`post`
 		WHERE
 			`userId` = #{userId}
-		ORDER BY `id` DESC
+			<if test="direction == 'next'">
+			<![CDATA[
+			AND `id` < #{standardId}
+			]]>
+			ORDER BY `id` DESC
+			</if>
+			<if test="direction == 'prev'">
+			<![CDATA[
+			AND `id` > #{standardId}
+			]]>
+			ORDER BY `id` ASC 
+			</if>
+			
+			<if test="direction == null">
+			ORDER BY `id` DESC
+			</if>
+			LIMIT ${limit}
 	</select>
 	
 	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.memo.post.domain.Post">
@@ -42,6 +58,18 @@
 		WHERE
 			`userId` = #{userId}
 			AND `id` = #{postId}
+			<!-- `id`(db컬럼명) = #{postId}(parm) -->
+	</select>
+	
+	<select id="selectPostIdByUserIdAndSort" parameterType="map" resultType="int">
+		SELECT
+			`id`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY `id` ${sort}
+		LIMIT 1
 	</select>
 	
 	<insert id="insertPost" parameterType="map">

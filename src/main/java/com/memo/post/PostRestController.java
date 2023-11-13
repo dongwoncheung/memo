@@ -40,6 +40,7 @@ public class PostRestController {
 		
 		// session에 들어있는 유저 id 꺼낸다.
 		int userId = (int)session.getAttribute("userId");
+		// sesion에 들어있는 loginid을 꺼낸다
 		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		// DB insert
@@ -80,12 +81,19 @@ public class PostRestController {
 		return result;// 응답값 jason으로 리턴
 	}
 	
+	/**
+	 * 글삭제 API
+	 * @param postId
+	 * @param session
+	 * @return
+	 */
 	@DeleteMapping("/delete")
 	public Map<String, Object>delete(
 			@RequestParam("postId") int postId,
 			HttpSession session){
 		
 		int userId = (int)session.getAttribute("userId"); // 이부분에 디버깅 한번 해서 삭제 하고 postid가 넘어오고 userid가 넘어오는지 확인후 결과처리 확인
+														 //	비로그인이 된사람이 삭제를 할수 있으니까 session에 있는 userid를 가져 와야된다
 		
 		//DB삭제
 		postBO.deletePostByPostIdUserId(postId, userId);
